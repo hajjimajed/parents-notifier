@@ -1,15 +1,18 @@
-import { View, Text } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import Register from "./src/routes/register/register.component";
+import Home from "./src/routes/home/home.component";
 
 export default function App() {
+  const Stack = createStackNavigator();
+
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text>Universal React with Expo</Text>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Register" component={Register} />
+        {/* other screens */}
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
