@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { RadioButton } from "react-native-paper";
 import { createAuthUserWithEmailAndPassword, createStudentDocumentFromAuth, createTeacherDocumentFromAuth } from "../../firebase/firebase";
+import { useContext } from "react";
+import { TeacherContext } from "../../contexts/teachers.context";
 
 export default function Register() {
     const [username, setUsername] = useState("");
@@ -10,11 +12,14 @@ export default function Register() {
     const [verification, setVerification] = useState("");
     const [password, setPassword] = useState("");
 
+    const { currentTeacher, setCurrentTeacher } = useContext(TeacherContext);
+
     const handleRegister = async () => {
         if (verification === 'a123bcd') {
             if (value === 'student') {
                 try {
                     const { user } = await createAuthUserWithEmailAndPassword(email, password);
+                    setCurrentTeacher(user);
                     await createStudentDocumentFromAuth(user, { username });
                 } catch (error) {
                     if (error.code === 'auth/email-already-in-use') {

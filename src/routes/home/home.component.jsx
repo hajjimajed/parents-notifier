@@ -9,6 +9,9 @@ export default Home = () => {
     const handleRegisterPress = () => {
         navigation.navigate("Register");
     };
+    const handleLogInPress = () => {
+        navigation.navigate("LogIn");
+    };
 
     return (
         <View
@@ -21,6 +24,9 @@ export default Home = () => {
             <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
                 <TouchableOpacity onPress={handleRegisterPress}>
                     <Text>Register</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={handleLogInPress}>
+                    <Text>Log In</Text>
                 </TouchableOpacity>
             </View>
 

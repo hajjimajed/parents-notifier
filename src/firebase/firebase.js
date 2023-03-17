@@ -67,6 +67,7 @@ export const createTeacherDocumentFromAuth = async (userAuth, additionalinformat
                 username,
                 email,
                 createdAt,
+                ref: 'teacher',
                 ...additionalinformations
             })
         } catch (error) {
@@ -93,6 +94,7 @@ export const createStudentDocumentFromAuth = async (userAuth, additionalinformat
                 username,
                 email,
                 createdAt,
+                ref: 'student',
                 ...additionalinformations
             })
         } catch (error) {
@@ -100,4 +102,25 @@ export const createStudentDocumentFromAuth = async (userAuth, additionalinformat
         }
     }
     return userDocRef;
+}
+
+
+export const signInAuthWithEmailAndPassword = async (email, password) => {
+    if (!email || !password) return;
+
+    return await signInWithEmailAndPassword(auth, email, password);
+}
+
+
+export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);
+
+export const currentTeacherData = async (currentTeacher) => {
+    if (currentTeacher) {
+
+        const docRef = doc(db, "teachers", currentTeacher.uid);
+        const docSnap = await getDoc(docRef);
+        const datas = docSnap.data()
+        return datas;
+
+    }
 }
